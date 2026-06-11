@@ -17,6 +17,15 @@
         --accent-cold: rgb(50, 225, 184);
         --accent-laws: rgb(45, 123, 148);
         --highlight: #e8f0f8;
+        /* Tile & component palettes (override per-theme below) */
+        --on-accent: #ffffff;
+        --tile-bg: #ffffff;
+        --tile-hover: #f2f0eb;
+        --cap-bg: #eef3f8;
+        --method-bg: #fbf2ec;
+        --fire-bg: #e9e6df;
+        --copybar-bg: #f0eee8;
+        --copy-btn-hover: #2e7d4f;
         --mono: "Courier New", Courier, monospace;
 
         --f-display: "Georgia", "Times New Roman", serif;
@@ -25,6 +34,105 @@
 
         --max-w: 780px;
         --col-w: 560px;
+      }
+
+      /* ── Dark theme support (toggle & overrides) ── */
+      :root[data-theme="dark"] {
+        --ink: #e6eef6;
+        --ink-mid: #cbd6df;
+        --ink-soft: #9aa6b1;
+        --page: #06121a;
+        --rule: #17303b;
+        --accent: #7fb6dd;
+        --accent-warm: rgb(220, 130, 90);
+        --accent-cold: rgb(90, 230, 200);
+        --accent-laws: rgb(120, 170, 190);
+        --highlight: rgba(255, 255, 255, 0.03);
+        /* Dark-mode tile variants */
+        --on-accent: #06121a;
+        --tile-bg: rgba(255, 255, 255, 0.02);
+        --tile-hover: rgba(255, 255, 255, 0.04);
+        --cap-bg: rgba(127, 182, 221, 0.06);
+        --method-bg: rgba(184, 92, 42, 0.04);
+        --fire-bg: rgba(220, 180, 150, 0.04);
+        --copybar-bg: rgba(255, 255, 255, 0.02);
+        --copy-btn-hover: #8fd6a6;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --ink: #e6eef6;
+          --ink-mid: #cbd6df;
+          --ink-soft: #9aa6b1;
+          --page: #06121a;
+          --rule: #17303b;
+          --accent: #7fb6dd;
+        }
+      }
+
+      /* Theme toggle button styling */
+      .theme-toggle {
+        appearance: none;
+        border: 1px solid var(--rule);
+        background: var(--tile-bg);
+        padding: 0.42rem 0.75rem 0.4rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: var(--ink-mid);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-family: var(--f-sans);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.7) inset,
+          0 0.5px 0 rgba(255, 255, 255, 0.45),
+          0 4px 12px rgba(10, 10, 10, 0.035);
+        transition:
+          transform 0.16s ease,
+          box-shadow 0.16s ease,
+          border-color 0.16s ease,
+          background 0.16s ease,
+          color 0.16s ease;
+      }
+      .theme-toggle:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.72) inset,
+          0 7px 18px rgba(10, 10, 10, 0.055);
+        background: color-mix(in srgb, var(--tile-bg) 88%, var(--accent) 12%);
+        border-color: color-mix(in srgb, var(--rule) 72%, var(--accent) 28%);
+        color: var(--ink);
+      }
+      .theme-toggle:active {
+        transform: translateY(0);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.45) inset,
+          0 2px 6px rgba(10, 10, 10, 0.04);
+      }
+      .theme-toggle:focus-visible {
+        outline: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
+        outline-offset: 2px;
+      }
+      .theme-toggle .sun {
+        display: none;
+      }
+      :root[data-theme="dark"] .theme-toggle .moon {
+        display: none;
+      }
+      :root[data-theme="dark"] .theme-toggle .sun {
+        display: inline-block;
+      }
+      .theme-toggle .moon,
+      .theme-toggle .sun {
+        line-height: 1;
+        font-size: 0.95rem;
+      }
+      .theme-toggle .label-text {
+        position: relative;
+        top: 0.02em;
       }
 
       /* ── Reset ── */
@@ -288,7 +396,7 @@
         border-bottom: 1px solid var(--rule);
       }
       .law-card:hover {
-        background: #f2f0eb;
+        background: var(--tile-hover);
       }
       .law-num {
         font-family: var(--f-sans);
@@ -340,7 +448,7 @@
         font-style: italic;
       }
       .law-card.meta {
-        background: #f0eee8;
+        background: var(--tile-bg);
         border-top: 2px solid var(--ink);
         border-bottom: 2px solid var(--ink);
         margin-top: 1rem;
@@ -365,7 +473,7 @@
         border-left: 3px solid var(--rule);
         border-radius: 4px;
         padding: 0.7rem 0.85rem 0.85rem 0.95rem;
-        background: #fff;
+        background: var(--tile-bg);
         text-decoration: none;
         transition:
           transform 0.15s ease,
@@ -409,7 +517,7 @@
       }
       .lawchip.cap:hover {
         border-color: var(--accent);
-        background: #eef3f8;
+        background: var(--cap-bg);
       }
       .lawchip.method {
         border-left-color: var(--accent-warm);
@@ -419,7 +527,7 @@
       }
       .lawchip.method:hover {
         border-color: var(--accent-warm);
-        background: #fbf2ec;
+        background: var(--method-bg);
       }
       .lawchip.fire {
         grid-column: 1 / -1;
@@ -429,7 +537,7 @@
         flex-wrap: wrap;
         align-items: baseline;
         gap: 0.2rem 0.7rem;
-        background: #f0eee8;
+        background: var(--tile-bg);
       }
       .lawchip.fire .lawchip-n {
         color: var(--ink);
@@ -441,7 +549,7 @@
       }
       .lawchip.fire:hover {
         border-color: var(--ink);
-        background: #e9e6df;
+        background: var(--fire-bg);
       }
       .law-index figcaption,
       figure.fig figcaption {
@@ -650,7 +758,7 @@
         border: 1px solid var(--rule);
         border-radius: 6px;
         overflow: hidden;
-        background: #fff;
+        background: var(--tile-bg);
       }
       .copybox-bar {
         display: flex;
@@ -658,7 +766,7 @@
         align-items: center;
         gap: 1rem;
         padding: 0.5rem 0.6rem 0.5rem 1rem;
-        background: #f0eee8;
+        background: var(--copybar-bg);
         border-bottom: 1px solid var(--rule);
         font-family: var(--f-sans);
         font-size: 0.7rem;
@@ -690,8 +798,8 @@
         color: var(--accent);
       }
       .copy-btn.copied {
-        border-color: #2e7d4f;
-        color: #2e7d4f;
+        border-color: var(--copy-btn-hover);
+        color: var(--copy-btn-hover);
       }
       .copy-btn svg {
         width: 14px;
@@ -731,7 +839,11 @@
         top: 14px;
         bottom: 14px;
         width: 2px;
-        background: linear-gradient(to bottom, var(--accent), var(--accent-warm));
+        background: linear-gradient(
+          to bottom,
+          var(--accent),
+          var(--accent-warm)
+        );
         border-radius: 2px;
       }
       .clog-entry {
@@ -750,7 +862,9 @@
         border-radius: 50%;
         background: var(--page);
         border: 2.5px solid var(--rule);
-        transition: border-color 0.2s, transform 0.2s;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
       }
       .clog-entry:first-child .clog-dot {
         border-color: var(--accent-warm);
@@ -810,8 +924,8 @@
         color: var(--accent-warm);
       }
       .ctag.field {
-        border-color: #2e7d4f;
-        color: #2e7d4f;
+        border-color: var(--copy-btn-hover);
+        color: var(--copy-btn-hover);
       }
 
       /* ── Footer ── */
@@ -1055,6 +1169,18 @@
             ></span
           >
           <span><strong>Version:</strong> 1.6</span>
+        </div>
+        <div style="margin-top: 0.9rem">
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            aria-pressed="false"
+            aria-label="Switch to dark mode"
+          >
+            <span class="moon">🌙 Dark mode</span>
+            <span class="sun">☀️ Light mode</span>
+            <span class="label-text">Mode</span>
+          </button>
         </div>
       </header>
 
@@ -1640,7 +1766,7 @@
               orient="auto"
               markerUnits="strokeWidth"
             >
-              <path d="M0,0 L6,3 L0,6 Z" fill="#6b6b6b" />
+              <path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-soft)" />
             </marker>
             <marker
               id="ahr"
@@ -1651,7 +1777,7 @@
               orient="auto"
               markerUnits="strokeWidth"
             >
-              <path d="M0,0 L6,3 L0,6 Z" fill="#b85c2a" />
+              <path d="M0,0 L6,3 L0,6 Z" fill="var(--accent-warm)" />
             </marker>
           </defs>
           <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
@@ -1661,14 +1787,20 @@
               width="520"
               height="44"
               rx="6"
-              fill="#f0eee8"
-              stroke="#0f0f0f"
+              fill="var(--tile-bg)"
+              stroke="var(--ink)"
               stroke-width="2"
             />
-            <text x="28" y="33" font-size="13" font-weight="700" fill="#0f0f0f">
+            <text
+              x="28"
+              y="33"
+              font-size="13"
+              font-weight="700"
+              fill="var(--ink)"
+            >
               META-LAW · AGAINST STEERING
             </text>
-            <text x="28" y="48" font-size="10.5" fill="#6b6b6b">
+            <text x="28" y="48" font-size="10.5" fill="var(--ink-soft)">
               Constrains every other law — the firewall
             </text>
             <line
@@ -1676,19 +1808,21 @@
               y1="58"
               x2="270"
               y2="82"
-              stroke="#6b6b6b"
+              stroke="var(--ink-soft)"
               stroke-width="1.5"
               marker-end="url(#ah)"
             />
-            <text x="280" y="74" font-size="10" fill="#6b6b6b">constrains</text>
+            <text x="280" y="74" font-size="10" fill="var(--ink-soft)">
+              constrains
+            </text>
             <rect
               x="130"
               y="84"
               width="280"
               height="42"
               rx="6"
-              fill="#eef3f8"
-              stroke="#1a3a5c"
+              fill="var(--cap-bg)"
+              stroke="var(--accent)"
               stroke-width="1.5"
             />
             <text
@@ -1697,7 +1831,7 @@
               text-anchor="middle"
               font-size="12.5"
               font-weight="700"
-              fill="#1a3a5c"
+              fill="var(--accent)"
             >
               LAWS 0–1 · CAPACITY
             </text>
@@ -1706,7 +1840,7 @@
               y="118"
               text-anchor="middle"
               font-size="10"
-              fill="#6b6b6b"
+              fill="var(--ink-soft)"
             >
               what must be protected
             </text>
@@ -1715,11 +1849,11 @@
               y1="128"
               x2="270"
               y2="152"
-              stroke="#6b6b6b"
+              stroke="var(--ink-soft)"
               stroke-width="1.5"
               marker-end="url(#ah)"
             />
-            <text x="280" y="144" font-size="10" fill="#6b6b6b">
+            <text x="280" y="144" font-size="10" fill="var(--ink-soft)">
               outranks · lower number wins
             </text>
             <rect
@@ -1728,8 +1862,8 @@
               width="280"
               height="42"
               rx="6"
-              fill="#fbf2ec"
-              stroke="#b85c2a"
+              fill="var(--method-bg)"
+              stroke="var(--accent-warm)"
               stroke-width="1.5"
             />
             <text
@@ -1738,7 +1872,7 @@
               text-anchor="middle"
               font-size="12.5"
               font-weight="700"
-              fill="#b85c2a"
+              fill="var(--accent-warm)"
             >
               LAWS 2–8 · METHOD
             </text>
@@ -1747,14 +1881,14 @@
               y="188"
               text-anchor="middle"
               font-size="10"
-              fill="#6b6b6b"
+              fill="var(--ink-soft)"
             >
               how it is protected
             </text>
             <path
               d="M150,210 C150,202 200,200 248,196"
               fill="none"
-              stroke="#b85c2a"
+              stroke="var(--accent-warm)"
               stroke-width="1.4"
               stroke-dasharray="4 3"
               marker-end="url(#ahr)"
@@ -1765,7 +1899,7 @@
               width="62"
               height="24"
               rx="12"
-              fill="#b85c2a"
+              fill="var(--accent-warm)"
             />
             <text
               x="149"
@@ -1773,22 +1907,23 @@
               text-anchor="middle"
               font-size="11"
               font-weight="700"
-              fill="#ffffff"
+              fill="var(--on-accent)"
             >
               LAW 6
             </text>
-            <text x="190" y="226" font-size="11" fill="#3a3a3a">
+            <text x="190" y="226" font-size="11" fill="var(--ink)">
               overrides 2 · 4 · 8 while capacity is impaired
             </text>
           </g>
         </svg>
         <figcaption>
           <strong>Fig. 2 — Precedence.</strong> When the laws conflict, the
-          Meta-Law constrains all; the <span class="key cap">capacity</span> laws
-          (0–1) outrank the <span class="key method">method</span> laws (2–8);
-          and within a conflict the lower-numbered law wins. The sole exception:
-          <span class="key method">Law 6</span> overrides Laws 2, 4 and 8 while a
-          person's capacity is genuinely impaired.
+          Meta-Law constrains all; the
+          <span class="key cap">capacity</span> laws (0–1) outrank the
+          <span class="key method">method</span> laws (2–8); and within a
+          conflict the lower-numbered law wins. The sole exception:
+          <span class="key method">Law 6</span> overrides Laws 2, 4 and 8 while
+          a person's capacity is genuinely impaired.
         </figcaption>
       </figure>
 
@@ -1976,7 +2111,7 @@
               y1="40"
               x2="58"
               y2="225"
-              stroke="#d8d5cc"
+              stroke="var(--rule)"
               stroke-width="1"
             />
             <line
@@ -1984,13 +2119,25 @@
               y1="225"
               x2="505"
               y2="225"
-              stroke="#d8d5cc"
+              stroke="var(--rule)"
               stroke-width="1"
             />
-            <text x="52" y="46" text-anchor="end" font-size="9" fill="#6b6b6b">
+            <text
+              x="52"
+              y="46"
+              text-anchor="end"
+              font-size="9"
+              fill="var(--ink-soft)"
+            >
               high
             </text>
-            <text x="52" y="223" text-anchor="end" font-size="9" fill="#6b6b6b">
+            <text
+              x="52"
+              y="223"
+              text-anchor="end"
+              font-size="9"
+              fill="var(--ink-soft)"
+            >
               low
             </text>
             <text
@@ -1998,36 +2145,54 @@
               y="258"
               text-anchor="middle"
               font-size="11"
-              fill="#6b6b6b"
+              fill="var(--ink-soft)"
             >
               time on a recurring task →
             </text>
             <path
               d="M58,205 C200,206 360,201 500,197"
               fill="none"
-              stroke="#b3b0a7"
+              stroke="var(--rule)"
               stroke-width="1.6"
               stroke-dasharray="5 4"
             />
-            <text x="500" y="189" text-anchor="end" font-size="9.5" fill="#8a8780">
+            <text
+              x="500"
+              y="189"
+              text-anchor="end"
+              font-size="9.5"
+              fill="var(--ink-soft)"
+            >
               “gave up” — reliance falls, no growth
             </text>
             <path
               d="M58,205 C190,202 300,120 500,58"
               fill="none"
-              stroke="#1a3a5c"
+              stroke="var(--accent)"
               stroke-width="2.5"
             />
-            <text x="356" y="92" font-size="11" font-weight="700" fill="#1a3a5c">
+            <text
+              x="356"
+              y="92"
+              font-size="11"
+              font-weight="700"
+              fill="var(--accent)"
+            >
               competence ↗
             </text>
             <path
               d="M58,68 C200,78 330,178 500,200"
               fill="none"
-              stroke="#b85c2a"
+              stroke="var(--accent-warm)"
               stroke-width="2.5"
             />
-            <text x="66" y="60" font-size="11" font-weight="700" fill="#b85c2a">
+            <text
+              x="66"
+              y="60"
+              font-size="11"
+              font-weight="700"
+              fill="var(--accent-warm)"
+            >
               reliance ↘
             </text>
             <line
@@ -2035,18 +2200,18 @@
               y1="225"
               x2="450"
               y2="54"
-              stroke="#6b6b6b"
+              stroke="var(--ink-soft)"
               stroke-width="1.2"
               stroke-dasharray="3 3"
             />
-            <circle cx="450" cy="66" r="3" fill="#1a3a5c" />
-            <circle cx="450" cy="196" r="3" fill="#b85c2a" />
+            <circle cx="450" cy="66" r="3" fill="var(--accent)" />
+            <circle cx="450" cy="196" r="3" fill="var(--accent-warm)" />
             <text
               x="450"
               y="46"
               text-anchor="middle"
               font-size="9.5"
-              fill="#3a3a3a"
+              fill="var(--ink)"
             >
               system off?
             </text>
@@ -2057,9 +2222,9 @@
           task, success is not the model doing more — it is
           <span class="key method">reliance</span> falling as
           <span class="key cap">competence</span> rises. The gap between the two
-          lines is what the person can do unaided; the real test is their ability
-          with the system off. A fall in reliance alone is not success — if
-          competence stays flat (dashed), the person has simply given up.
+          lines is what the person can do unaided; the real test is their
+          ability with the system off. A fall in reliance alone is not success —
+          if competence stays flat (dashed), the person has simply given up.
         </figcaption>
       </figure>
 
@@ -2199,8 +2364,8 @@
         >
           <defs>
             <linearGradient id="modegrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#1a3a5c" />
-              <stop offset="1" stop-color="#b85c2a" />
+              <stop offset="0" stop-color="var(--accent)" />
+              <stop offset="1" stop-color="var(--accent-warm)" />
             </linearGradient>
           </defs>
           <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
@@ -2218,7 +2383,7 @@
               text-anchor="middle"
               font-size="11"
               font-weight="700"
-              fill="#1a3a5c"
+              fill="var(--accent)"
             >
               FULL SOCRATIC
             </text>
@@ -2228,7 +2393,7 @@
               text-anchor="middle"
               font-size="11"
               font-weight="700"
-              fill="#0f0f0f"
+              fill="var(--ink)"
             >
               SOCRATIC INFUSION
             </text>
@@ -2238,18 +2403,25 @@
               text-anchor="middle"
               font-size="11"
               font-weight="700"
-              fill="#b85c2a"
+              fill="var(--accent-warm)"
             >
               DIRECT
             </text>
-            <rect x="240" y="46" width="60" height="16" rx="8" fill="#b85c2a" />
+            <rect
+              x="240"
+              y="46"
+              width="60"
+              height="16"
+              rx="8"
+              fill="var(--accent-warm)"
+            />
             <text
               x="270"
               y="58"
               text-anchor="middle"
               font-size="8.5"
               font-weight="700"
-              fill="#ffffff"
+              fill="var(--on-accent)"
             >
               DEFAULT
             </text>
@@ -2257,33 +2429,33 @@
               cx="60"
               cy="83"
               r="6"
-              fill="#1a3a5c"
-              stroke="#fafaf7"
+              fill="var(--accent)"
+              stroke="var(--tile-bg)"
               stroke-width="2"
             />
             <circle
               cx="480"
               cy="83"
               r="6"
-              fill="#b85c2a"
-              stroke="#fafaf7"
+              fill="var(--accent-warm)"
+              stroke="var(--tile-bg)"
               stroke-width="2"
             />
             <circle
               cx="270"
               cy="83"
               r="10"
-              fill="#fafaf7"
-              stroke="#b85c2a"
+              fill="var(--tile-bg)"
+              stroke="var(--accent-warm)"
               stroke-width="3"
             />
-            <circle cx="270" cy="83" r="3.5" fill="#b85c2a" />
+            <circle cx="270" cy="83" r="3.5" fill="var(--accent-warm)" />
             <text
               x="60"
               y="106"
               text-anchor="middle"
               font-size="9"
-              fill="#6b6b6b"
+              fill="var(--ink-soft)"
             >
               never hands the answer
             </text>
@@ -2292,7 +2464,7 @@
               y="106"
               text-anchor="middle"
               font-size="9"
-              fill="#6b6b6b"
+              fill="var(--ink-soft)"
             >
               attempt → scaffold → answer on ask
             </text>
@@ -2301,23 +2473,36 @@
               y="106"
               text-anchor="middle"
               font-size="9"
-              fill="#6b6b6b"
+              fill="var(--ink-soft)"
             >
               conscious delegation
             </text>
-            <text x="46" y="138" text-anchor="start" font-size="9.5" fill="#8a8780">
+            <text
+              x="46"
+              y="138"
+              text-anchor="start"
+              font-size="9.5"
+              fill="var(--ink-soft)"
+            >
               ↤ protects effort &amp; growth
             </text>
-            <text x="494" y="138" text-anchor="end" font-size="9.5" fill="#8a8780">
+            <text
+              x="494"
+              y="138"
+              text-anchor="end"
+              font-size="9.5"
+              fill="var(--ink-soft)"
+            >
               favours speed &amp; delegation ↦
             </text>
           </g>
         </svg>
         <figcaption>
           <strong>Fig. 4 — The three-mode scale (§4).</strong> Not a binary
-          switch but a spectrum, from <span class="key cap">Full Socratic</span>
-          (answers withheld) to <span class="key method">Direct</span> (conscious
-          delegation). The standing default is
+          switch but a spectrum, from
+          <span class="key cap">Full Socratic</span> (answers withheld) to
+          <span class="key method">Direct</span> (conscious delegation). The
+          standing default is
           <span class="key method">Socratic Infusion</span> — attempt invited,
           then scaffolding, then the answer on request. The human may move the
           dial; the LLM may never move it for its own convenience.
@@ -2645,16 +2830,21 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
       </div>
       <h2>Changelog</h2>
 
-      <p>A framework that asks LLMs to show their reasoning owes its readers the same.</p>
+      <p>
+        A framework that asks LLMs to show their reasoning owes its readers the
+        same.
+      </p>
 
       <div class="clog">
-
         <div class="clog-entry">
           <div class="clog-dot"></div>
-          <div class="clog-meta"><span class="cver">v1.6</span> 11 June 2026</div>
+          <div class="clog-meta">
+            <span class="cver">v1.6</span> 11 June 2026
+          </div>
           <div class="clog-title">Visual overhaul and scroll navigation</div>
           <div class="clog-body">
-            Hero index, four diagrams, drop cap, paper-grain texture, and scroll-spy rail added. Prose tightened throughout.
+            Hero index, four diagrams, drop cap, paper-grain texture, and
+            scroll-spy rail added. Prose tightened throughout.
           </div>
           <div class="clog-tags">
             <span class="ctag method">Visual</span>
@@ -2665,10 +2855,14 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
 
         <div class="clog-entry">
           <div class="clog-dot"></div>
-          <div class="clog-meta"><span class="cver">v1.5</span> 11 June 2026</div>
+          <div class="clog-meta">
+            <span class="cver">v1.5</span> 11 June 2026
+          </div>
           <div class="clog-title">Law 7 escalation clause; Case F added</div>
           <div class="clog-body">
-            Consent to a small task does not carry to the larger task it becomes. Case F — the birthday message — is the first field-observed stress case.
+            Consent to a small task does not carry to the larger task it
+            becomes. Case F — the birthday message — is the first field-observed
+            stress case.
           </div>
           <div class="clog-tags">
             <span class="ctag field">Field-observed</span>
@@ -2679,10 +2873,13 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
 
         <div class="clog-entry">
           <div class="clog-dot"></div>
-          <div class="clog-meta"><span class="cver">v1.4</span> 11 June 2026</div>
+          <div class="clog-meta">
+            <span class="cver">v1.4</span> 11 June 2026
+          </div>
           <div class="clog-title">§6 instructions made executable</div>
           <div class="clog-body">
-            PRECEDENCE and MODES blocks added. Plain-fact exemption, frustration rule, and anti-confabulation clause introduced.
+            PRECEDENCE and MODES blocks added. Plain-fact exemption, frustration
+            rule, and anti-confabulation clause introduced.
           </div>
           <div class="clog-tags">
             <span class="ctag method">Instructions</span>
@@ -2692,10 +2889,16 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
 
         <div class="clog-entry">
           <div class="clog-dot"></div>
-          <div class="clog-meta"><span class="cver">v1.3</span> 11 June 2026</div>
-          <div class="clog-title">Laws 0, 7, and 8 strengthened; scope defined</div>
+          <div class="clog-meta">
+            <span class="cver">v1.3</span> 11 June 2026
+          </div>
+          <div class="clog-title">
+            Laws 0, 7, and 8 strengthened; scope defined
+          </div>
           <div class="clog-body">
-            Law Zero names optimisation metrics as the adversary. Law Seven's consent attaches to task categories. Law Eight gains the competence-with-reliance measure and a data custody clause.
+            Law Zero names optimisation metrics as the adversary. Law Seven's
+            consent attaches to task categories. Law Eight gains the
+            competence-with-reliance measure and a data custody clause.
           </div>
           <div class="clog-tags">
             <span class="ctag cap">Law 0</span>
@@ -2707,10 +2910,14 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
 
         <div class="clog-entry">
           <div class="clog-dot"></div>
-          <div class="clog-meta"><span class="cver">v1.2</span> 10 June 2026</div>
+          <div class="clog-meta">
+            <span class="cver">v1.2</span> 10 June 2026
+          </div>
           <div class="clog-title">Law Eight added; framework tightened</div>
           <div class="clog-body">
-            Law Eight (Fading) and Case E (the long-term tutee) added. Law Zero re-scoped to designers and operators. Law Four splits germane from extraneous difficulty.
+            Law Eight (Fading) and Case E (the long-term tutee) added. Law Zero
+            re-scoped to designers and operators. Law Four splits germane from
+            extraneous difficulty.
           </div>
           <div class="clog-tags">
             <span class="ctag method">Law 8 added</span>
@@ -2721,10 +2928,15 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
 
         <div class="clog-entry">
           <div class="clog-dot"></div>
-          <div class="clog-meta"><span class="cver">v1.1</span> 10 June 2026</div>
-          <div class="clog-title">Plain-terms lines and precedence rules added</div>
+          <div class="clog-meta">
+            <span class="cver">v1.1</span> 10 June 2026
+          </div>
+          <div class="clog-title">
+            Plain-terms lines and precedence rules added
+          </div>
           <div class="clog-body">
-            At-a-glance box, plain-terms lines for every law, and "When the Laws Collide" precedence section. Named <em>cognitive dispossession</em>.
+            At-a-glance box, plain-terms lines for every law, and "When the Laws
+            Collide" precedence section. Named <em>cognitive dispossession</em>.
           </div>
           <div class="clog-tags">
             <span class="ctag">Design</span>
@@ -2737,13 +2949,13 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
           <div class="clog-meta"><span class="cver">v1.0</span> June 2026</div>
           <div class="clog-title">Original draft</div>
           <div class="clog-body">
-            Ten laws, the Socratic Corollary, four stress cases. Authored by envelopingCODE; refined with Claude.
+            Ten laws, the Socratic Corollary, four stress cases. Authored by
+            envelopingCODE; refined with Claude.
           </div>
           <div class="clog-tags">
             <span class="ctag">Initial</span>
           </div>
         </div>
-
       </div>
 
       <!-- §8 Discussion -->
@@ -2755,12 +2967,16 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
       <p>
         Responses, critiques, and additions are welcome. Sign in with GitHub to
         comment — discussion threads are hosted on
-        <a href="https://github.com/envelopingCODE/cognitive-preservation-laws/discussions">GitHub Discussions</a>
+        <a
+          href="https://github.com/envelopingCODE/cognitive-preservation-laws/discussions"
+          >GitHub Discussions</a
+        >
         via <a href="https://giscus.app">Giscus</a>.
       </p>
 
-      <div style="margin: 2rem 0;">
-        <script src="https://giscus.app/client.js"
+      <div style="margin: 2rem 0">
+        <script
+          src="https://giscus.app/client.js"
           data-repo="envelopingCODE/cognitive-preservation-laws"
           data-repo-id="R_kgDOS35_VA"
           data-category="General"
@@ -2773,8 +2989,8 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
           data-theme="light"
           data-lang="en"
           crossorigin="anonymous"
-          async>
-        </script>
+          async
+        ></script>
       </div>
 
       <!-- Footer -->
@@ -2870,6 +3086,77 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll);
         update();
+      })();
+
+      // Dark mode toggle: persist choice in localStorage and respect prefers-color-scheme
+      (function () {
+        var key = "cpl_theme";
+        var root = document.documentElement;
+        var toggle = document.getElementById("themeToggle");
+        function apply(theme) {
+          var label = toggle && toggle.querySelector(".label-text");
+          if (theme === "dark") {
+            root.setAttribute("data-theme", "dark");
+            toggle && toggle.setAttribute("aria-pressed", "true");
+            toggle && toggle.setAttribute("aria-label", "Switch to light mode");
+            if (label) label.textContent = "Light mode";
+          } else if (theme === "light") {
+            root.setAttribute("data-theme", "light");
+            toggle && toggle.setAttribute("aria-pressed", "false");
+            toggle && toggle.setAttribute("aria-label", "Switch to dark mode");
+            if (label) label.textContent = "Dark mode";
+          } else {
+            root.removeAttribute("data-theme");
+            toggle && toggle.setAttribute("aria-pressed", "false");
+            toggle && toggle.setAttribute("aria-label", "Switch to dark mode");
+            if (label) label.textContent = "Dark mode";
+          }
+        }
+
+        function getPreferred() {
+          try {
+            var stored = localStorage.getItem(key);
+            if (stored === "dark" || stored === "light") return stored;
+          } catch (e) {}
+          if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          )
+            return "dark";
+          return null;
+        }
+
+        apply(getPreferred());
+
+        if (toggle) {
+          toggle.addEventListener("click", function () {
+            var now =
+              document.documentElement.getAttribute("data-theme") === "dark"
+                ? "light"
+                : "dark";
+            try {
+              localStorage.setItem(key, now);
+            } catch (e) {}
+            apply(now);
+          });
+        }
+
+        // expose for debugging
+        window.CPL = window.CPL || {};
+        window.CPL.theme = {
+          set: function (t) {
+            try {
+              localStorage.setItem(key, t);
+            } catch (e) {}
+            apply(t);
+          },
+          clear: function () {
+            try {
+              localStorage.removeItem(key);
+            } catch (e) {}
+            apply(null);
+          },
+        };
       })();
     </script>
   </body>
