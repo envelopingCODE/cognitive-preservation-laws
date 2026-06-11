@@ -10,8 +10,10 @@
         --ink: #0f0f0f;
         --ink-mid: #3a3a3a;
         --ink-soft: #6b6b6b;
+        --ink-light: #d8d5cc;
         --page: #fafaf7;
         --rule: #d8d5cc;
+
         --accent: #1a3a5c;
         --accent-warm: rgb(202, 125, 83);
         --accent-cold: rgb(50, 225, 184);
@@ -24,7 +26,7 @@
         --cap-bg: #eef3f8;
         --method-bg: #fbf2ec;
         --fire-bg: #e9e6df;
-        --copybar-bg: #f0eee8;
+        --copybar-bg: #d6d6d6;
         --copy-btn-hover: #2e7d4f;
         --mono: "Courier New", Courier, monospace;
 
@@ -1159,7 +1161,7 @@
           transform 0.25s ease;
         pointer-events: none;
         transform: translateZ(0);
-        animation: glowShift 6s linear infinite;
+        animation: glowShift 12s linear infinite;
         mix-blend-mode: screen;
       }
       @keyframes glowShift {
@@ -1207,12 +1209,12 @@
         padding: 2px;
         background: conic-gradient(
           from var(--orbit-angle),
-          transparent               0deg,
-          transparent               263deg,
-          rgba(63, 138, 255, 0)     268deg,
-          rgba(63, 138, 255, 0.45)  322deg,
+          transparent 0deg,
+          transparent 263deg,
+          rgba(63, 138, 255, 0) 268deg,
+          rgba(63, 138, 255, 0.45) 322deg,
           rgba(180, 215, 255, 0.65) 350deg,
-          rgba(63, 138, 255, 0.45)  360deg
+          rgba(63, 138, 255, 0.45) 360deg
         );
         -webkit-mask:
           linear-gradient(#fff 0 0) content-box,
@@ -1222,25 +1224,37 @@
         animation: orbitGlow 6s linear infinite;
       }
       @keyframes orbitGlow {
-        0%   { --orbit-angle: 0deg;   }
-        30%  { --orbit-angle: 150deg; }
-        55%  { --orbit-angle: 240deg; }
-        80%  { --orbit-angle: 310deg; }
-        100% { --orbit-angle: 360deg; }
+        0% {
+          --orbit-angle: 0deg;
+        }
+        30% {
+          --orbit-angle: 150deg;
+        }
+        55% {
+          --orbit-angle: 240deg;
+        }
+        80% {
+          --orbit-angle: 310deg;
+        }
+        100% {
+          --orbit-angle: 360deg;
+        }
       }
       :root[data-theme="dark"] .peripheral-glow::after {
         background: conic-gradient(
           from var(--orbit-angle),
-          transparent               0deg,
-          transparent               260deg,
-          rgba(63, 138, 255, 0)     266deg,
-          rgba(63, 138, 255, 0.55)  320deg,
-          rgba(180, 215, 255, 0.80) 350deg,
-          rgba(63, 138, 255, 0.55)  360deg
+          transparent 0deg,
+          transparent 260deg,
+          rgba(63, 138, 255, 0) 266deg,
+          rgba(63, 138, 255, 0.55) 320deg,
+          rgba(180, 215, 255, 0.8) 350deg,
+          rgba(63, 138, 255, 0.55) 360deg
         );
       }
       @media (max-width: 900px) {
-        .peripheral-glow::after { display: none; }
+        .peripheral-glow::after {
+          display: none;
+        }
       }
     </style>
   </head>
