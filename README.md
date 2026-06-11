@@ -1,6 +1,6 @@
 # The Cognitive Preservation Laws for Large Language Models
 
-**A framework for protecting human cognitive sovereignty in the age of ambient artificial intelligence.**
+**What we lose when thinking becomes a service — and a framework to stop it happening quietly.**
 
 [Read the paper →](https://envelopingcode.github.io/cognitive-preservation-laws/)
 
