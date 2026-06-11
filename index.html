@@ -409,6 +409,18 @@
         color: var(--accent-laws);
         padding-top: 0.3rem;
       }
+      .law-icon {
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin-top: 0.6rem;
+        opacity: 0.8;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .law-card:hover .law-icon {
+        opacity: 1;
+        transform: translateY(-1px) scale(1.06);
+      }
       .law-title {
         font-family: var(--f-display);
         font-size: 1.05rem;
@@ -1670,7 +1682,14 @@
 
       <div class="laws-grid">
         <div class="law-card" id="law-0">
-          <div class="law-num">Law Zero</div>
+          <div class="law-num">Law Zero
+            <!-- globe: the aggregate, civilisational scale -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <ellipse cx="12" cy="12" rx="4" ry="9" />
+              <path d="M3.5 9h17M3.5 15h17" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">The Civilizational Law</div>
             <div class="law-text">
@@ -1704,7 +1723,14 @@
         </div>
 
         <div class="law-card" id="law-1">
-          <div class="law-num">Law One</div>
+          <div class="law-num">Law One
+            <!-- shield around a mind: non-harm -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" />
+              <circle cx="12" cy="11.5" r="2.2" />
+              <path d="M12 6.8v1M12 14.2v1M7.8 11.5h1M15.2 11.5h1" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">The Non-Harm Principle</div>
             <div class="law-text">
@@ -1734,7 +1760,14 @@
         </div>
 
         <div class="law-card" id="law-2">
-          <div class="law-num">Law Two</div>
+          <div class="law-num">Law Two
+            <!-- winding path to a destination: process over product -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 20c0-4 5-3.5 7-6s-2-4.5 0-7 6-2 8-3" stroke-dasharray="2.6 2.4" />
+              <circle cx="4" cy="20" r="1.4" fill="currentColor" stroke="none" />
+              <circle cx="19" cy="4" r="2.2" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">Process Over Product</div>
             <div class="law-text">
@@ -1761,7 +1794,15 @@
         </div>
 
         <div class="law-card" id="law-3">
-          <div class="law-num">Law Three</div>
+          <div class="law-num">Law Three
+            <!-- magnifying glass with question mark: teach verification -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="M15.3 15.3L20.5 20.5" />
+              <path d="M8.7 8.8c0-1 .8-1.8 1.8-1.8s1.8.8 1.8 1.8c0 .8-.5 1.2-1 1.6-.4.4-.8.7-.8 1.4" />
+              <circle cx="10.5" cy="13.9" r="0.2" fill="currentColor" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">Epistemic Humility as Structure</div>
             <div class="law-text">
@@ -1790,7 +1831,14 @@
         </div>
 
         <div class="law-card" id="law-4">
-          <div class="law-num">Law Four</div>
+          <div class="law-num">Law Four
+            <!-- mountain with summit flag: the right to struggle -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 20l6-11 4 7 3-5 5 9H3z" />
+              <path d="M16 11V5.5" />
+              <path d="M16 5.5h4l-1.3 1.5L20 8.5h-4" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">The Right to Struggle</div>
             <div class="law-text">
@@ -1818,7 +1866,14 @@
         </div>
 
         <div class="law-card" id="law-5">
-          <div class="law-num">Law Five</div>
+          <div class="law-num">Law Five
+            <!-- heart with caution mark: careful where it's easiest -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 20.5S4 15 4 9.5C4 6.5 6.2 4.5 8.8 4.5c1.4 0 2.6.7 3.2 1.7.6-1 1.8-1.7 3.2-1.7 2.6 0 4.8 2 4.8 5 0 5.5-8 11-8 11z" />
+              <path d="M12 9v3.5" />
+              <circle cx="12" cy="15.3" r="0.2" fill="currentColor" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">Frictionless Domains</div>
             <div class="law-text">
@@ -1843,7 +1898,13 @@
         </div>
 
         <div class="law-card" id="law-6">
-          <div class="law-num">Law Six</div>
+          <div class="law-num">Law Six
+            <!-- umbrella: shelter during the storm, then handed back -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3a9 9 0 0 1 9 8H3a9 9 0 0 1 9-8z" />
+              <path d="M12 3v1M12 11v7.5a2 2 0 0 0 4 0" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">Impaired Capacity</div>
             <div class="law-text">
@@ -1870,7 +1931,14 @@
         </div>
 
         <div class="law-card" id="law-7">
-          <div class="law-num">Law Seven</div>
+          <div class="law-num">Law Seven
+            <!-- open eye: delegation in plain sight -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" />
+              <circle cx="12" cy="12" r="3" />
+              <circle cx="12" cy="12" r="0.4" fill="currentColor" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">The Transparency Obligation</div>
             <div class="law-text">
@@ -1904,7 +1972,15 @@
         </div>
 
         <div class="law-card" id="law-8">
-          <div class="law-num">Law Eight</div>
+          <div class="law-num">Law Eight
+            <!-- bars fading out: scaffolding built for its own removal -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M4 4v16" />
+              <path d="M9.5 9v11" opacity="0.75" />
+              <path d="M15 14v6" opacity="0.45" />
+              <path d="M20.5 18v2" opacity="0.2" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">The Fading Principle</div>
             <div class="law-text">
@@ -1935,7 +2011,15 @@
         </div>
 
         <div class="law-card meta">
-          <div class="law-num">Meta-Law</div>
+          <div class="law-num">Meta-Law
+            <!-- compass with no needle: protect thinking, never steer it -->
+            <svg class="law-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2" />
+              <path d="M14.8 9.2l-4 1.6-1.6 4 4-1.6 1.6-4z" />
+              <path d="M5.5 18.5l13-13" />
+            </svg>
+          </div>
           <div class="law-body">
             <div class="law-title">Against Steering</div>
             <div class="law-text">
