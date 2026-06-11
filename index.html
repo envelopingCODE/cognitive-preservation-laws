@@ -1183,20 +1183,24 @@
         border-radius: 10px;
         z-index: -1;
         pointer-events: none;
-        /* concentrated comet arc ~95° wide; rest is transparent */
+        padding: 2px; /* border strip width */
         background: conic-gradient(
           from 0deg,
-          transparent 0deg,
-          transparent 265deg,
-          rgba(63, 138, 255, 0.06)  295deg,
-          rgba(100, 165, 255, 0.16) 340deg,
-          rgba(160, 200, 255, 0.20) 355deg,
-          rgba(100, 165, 255, 0.16) 360deg
+          transparent            0deg,
+          transparent            263deg,
+          rgba(63, 138, 255, 0)  268deg,
+          rgba(63, 138, 255, 0.45)  322deg,
+          rgba(180, 215, 255, 0.65) 350deg,
+          rgba(63, 138, 255, 0.45)  360deg
         );
-        filter: blur(3px);
+        /* punch out the interior — show only the 2px border strip */
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
         animation: orbitGlow 6s ease-in-out infinite;
       }
-      /* non-uniform speed: accelerates out of the gate, decelerates on approach */
       @keyframes orbitGlow {
         0%   { transform: rotate(0deg);   }
         30%  { transform: rotate(150deg); }
@@ -1207,12 +1211,12 @@
       :root[data-theme="dark"] .peripheral-glow::after {
         background: conic-gradient(
           from 0deg,
-          transparent 0deg,
-          transparent 260deg,
-          rgba(63, 138, 255, 0.10)  293deg,
-          rgba(100, 165, 255, 0.28) 340deg,
-          rgba(160, 210, 255, 0.36) 355deg,
-          rgba(100, 165, 255, 0.28) 360deg
+          transparent            0deg,
+          transparent            260deg,
+          rgba(63, 138, 255, 0)  266deg,
+          rgba(63, 138, 255, 0.55)  320deg,
+          rgba(180, 215, 255, 0.80) 350deg,
+          rgba(63, 138, 255, 0.55)  360deg
         );
       }
       @media (max-width: 900px) {
