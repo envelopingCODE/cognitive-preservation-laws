@@ -1161,7 +1161,7 @@
           transform 0.25s ease;
         pointer-events: none;
         transform: translateZ(0);
-        animation: glowShift 12s linear infinite;
+        animation: glowShift 20s linear infinite;
         mix-blend-mode: screen;
       }
       @keyframes glowShift {
@@ -2797,7 +2797,10 @@
         <span class="sec-num">§ 5</span>
         <div class="sec-rule"></div>
       </div>
-      <div class="peripheral-glow" style="padding: 1.5rem 1.8rem; margin: 0 -1.8rem;">
+      <div
+        class="peripheral-glow"
+        style="padding: 1.5rem 1.8rem; margin: 0 -1.8rem"
+      >
         <h2>The Complete Framework</h2>
 
         <div style="overflow-x: auto">
@@ -3308,7 +3311,6 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
         function setLawsRailVisible(visible) {
           if (!lawsRail) return;
           lawsRail.classList.toggle("is-visible", visible);
-          lawsRail.style.display = visible ? "block" : "none";
         }
 
         function update() {
