@@ -951,6 +951,46 @@
         z-index: 40;
         display: none;
       }
+      .laws-rail {
+        position: fixed;
+        top: 50%;
+        left: 1.5rem;
+        transform: translateY(-50%);
+        z-index: 39;
+        display: none;
+        opacity: 0;
+        transition:
+          opacity 0.18s ease,
+          transform 0.18s ease;
+      }
+      .laws-rail.is-visible {
+        opacity: 1;
+      }
+      .laws-rail .rail-link {
+        gap: 0.5rem;
+        padding: 0.25rem 0;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+      }
+      .laws-rail .rail-dot {
+        width: 9px;
+        height: 9px;
+        border-width: 1.5px;
+      }
+      .laws-rail .rail-track {
+        left: 3px;
+        top: 10px;
+        bottom: 10px;
+        width: 1px;
+        opacity: 0.7;
+      }
+      .laws-rail .rail-label {
+        opacity: 0.62;
+      }
+      .laws-rail .rail-item.active .rail-dot {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 3px rgba(184, 92, 42, 0.12);
+      }
       .rail-list {
         list-style: none;
         position: relative;
@@ -1037,6 +1077,9 @@
         .scroll-rail {
           display: block;
         }
+        .laws-rail {
+          display: block;
+        }
       }
 
       /* ── Glance links ── */
@@ -1075,7 +1118,98 @@
         .modes-table {
           font-size: 0.78rem;
         }
+        .laws-rail,
+        .scroll-rail {
+          display: none !important;
+        }
       }
+      /* ── Co-pilot-style border glow ── */
+      :root {
+        --glow-1: 63 138 255; /* r g b */
+        --glow-2: 138 63 255; /* r g b */
+        --glow-opacity: 0.28;
+        --glow-blur: 12px;
+        --glow-spread: 12px;
+      }
+      :root[data-theme="dark"] {
+        --glow-opacity: 0.42;
+        --glow-blur: 16px;
+      }
+
+      .copilot-glow {
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+      }
+      .copilot-glow::before {
+        content: "";
+        position: absolute;
+        inset: calc(-1 * var(--glow-spread));
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(90deg, rgb(var(--glow-1)) 0%, rgb(var(--glow-2)) 100%);
+        filter: blur(var(--glow-blur));
+        opacity: var(--glow-opacity);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        pointer-events: none;
+        transform: translateZ(0);
+        animation: glowShift 6s linear infinite;
+        mix-blend-mode: screen;
+      }
+      @keyframes glowShift {
+        0% { filter: blur(var(--glow-blur)) hue-rotate(0deg); }
+        50% { filter: blur(calc(var(--glow-blur) * 1.25)) hue-rotate(30deg); }
+        100% { filter: blur(var(--glow-blur)) hue-rotate(0deg); }
+      }
+      .copilot-glow:focus-within::before,
+      .copilot-glow:hover::before {
+        opacity: calc(var(--glow-opacity) * 1.35);
+        transform: translateY(-2px);
+      }
+      @media (max-width: 600px) {
+        .copilot-glow::before { display: none; }
+      }
+
+      /* ── Subtle peripheral blue glow for specific sections ── */
+      .peripheral-glow {
+        position: relative;
+        z-index: 0;
+        border-radius: 8px;
+      }
+      .peripheral-glow::after {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        z-index: -1;
+        border-radius: inherit;
+        pointer-events: none;
+        /* soft ring + subtle rotating highlight */
+        background: conic-gradient(from 0deg, rgba(86,125,156,0.10), rgba(86,125,156,0.03) 55%, rgba(86,125,156,0.12) 120%, rgba(86,125,156,0.00) 220deg);
+        filter: blur(8px);
+        box-shadow: 0 0 10px 2px rgba(86, 125, 156, 0.08), 0 0 22px 4px rgba(86,125,156,0.04) inset;
+        opacity: 0.9;
+        transition: opacity 220ms ease, transform 220ms ease;
+        transform-origin: 50% 50%;
+        transform: rotate(0deg) translateZ(0);
+        will-change: transform, opacity;
+        animation: peripheralOrbit var(--peripheral-duration,9s) linear infinite;
+      }
+      @keyframes peripheralOrbit {
+        /* rotation amounts vary across the cycle to create a sense of
+           speeding up and slowing down like the Co‑pilot ring */
+        0%   { transform: rotate(0deg);   opacity: 0.92; }
+        25%  { transform: rotate(160deg); opacity: 0.86; }
+        45%  { transform: rotate(520deg); opacity: 0.78; }
+        70%  { transform: rotate(760deg); opacity: 0.82; }
+        100% { transform: rotate(1080deg);opacity: 0.92; }
+      }
+      :root[data-theme="dark"] .peripheral-glow::after {
+        box-shadow: 0 0 18px 4px rgba(100, 150, 180, 0.12), 0 0 36px 8px rgba(100,150,180,0.04) inset;
+      }
+      @media (max-width: 900px) {
+        .peripheral-glow::after { display: none; }
+      }
+
     </style>
   </head>
   <body>
@@ -1128,6 +1262,64 @@
           <a class="rail-link" href="#discussion"
             ><span class="rail-dot"></span
             ><span class="rail-label">Discussion</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+    <nav class="laws-rail" id="lawsRail" aria-label="Ten laws navigation">
+      <div class="rail-track">
+        <div class="rail-fill" id="lawsRailFill"></div>
+      </div>
+      <ul class="rail-list">
+        <li class="rail-item">
+          <a class="rail-link" href="#law-0"
+            ><span class="rail-dot"></span><span class="rail-label">0</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-1"
+            ><span class="rail-dot"></span><span class="rail-label">1</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-2"
+            ><span class="rail-dot"></span><span class="rail-label">2</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-3"
+            ><span class="rail-dot"></span><span class="rail-label">3</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-4"
+            ><span class="rail-dot"></span><span class="rail-label">4</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-5"
+            ><span class="rail-dot"></span><span class="rail-label">5</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-6"
+            ><span class="rail-dot"></span><span class="rail-label">6</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-7"
+            ><span class="rail-dot"></span><span class="rail-label">7</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-8"
+            ><span class="rail-dot"></span><span class="rail-label">8</span></a
+          >
+        </li>
+        <li class="rail-item">
+          <a class="rail-link" href="#law-meta"
+            ><span class="rail-dot"></span
+            ><span class="rail-label">Meta</span></a
           >
         </li>
       </ul>
@@ -1210,7 +1402,7 @@
       </div>
 
       <!-- At a glance -->
-      <div class="glance">
+      <div class="glance peripheral-glow">
         <div class="glance-label">The Framework in One Minute</div>
         <ul>
           <li>
@@ -2559,7 +2751,7 @@
         <span class="sec-num">§ 5</span>
         <div class="sec-rule"></div>
       </div>
-      <h2>The Complete Framework</h2>
+      <h2 class="peripheral-glow">The Complete Framework</h2>
 
       <div style="overflow-x: auto">
         <table class="hier-table">
@@ -2986,7 +3178,7 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
           data-reactions-enabled="1"
           data-emit-metadata="0"
           data-input-position="bottom"
-          data-theme="light"
+          data-theme="preferred_color_scheme"
           data-lang="en"
           crossorigin="anonymous"
           async
@@ -3044,8 +3236,10 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
       /* Scroll-spy rail: progress fill + active section highlighting */
       (function () {
         var rail = document.getElementById("scrollRail");
+        var lawsRail = document.getElementById("lawsRail");
         if (!rail) return;
         var fill = document.getElementById("railFill");
+        var lawsFill = document.getElementById("lawsRailFill");
         var items = Array.prototype.slice.call(
           rail.querySelectorAll(".rail-item"),
         );
@@ -3053,12 +3247,57 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
           var href = it.querySelector("a").getAttribute("href");
           return document.getElementById(href.slice(1));
         });
+        var lawsItems = lawsRail
+          ? Array.prototype.slice.call(lawsRail.querySelectorAll(".rail-item"))
+          : [];
+        var lawsSections = lawsItems.map(function (it) {
+          var href = it.querySelector("a").getAttribute("href");
+          return document.getElementById(href.slice(1));
+        });
+        var lawsStart = document.getElementById("laws");
+        var lawsEnd = document.getElementById("stress");
+
+        function setLawsRailVisible(visible) {
+          if (!lawsRail) return;
+          lawsRail.classList.toggle("is-visible", visible);
+          lawsRail.style.display = visible ? "block" : "none";
+        }
 
         function update() {
           var scrollTop = window.scrollY || document.documentElement.scrollTop;
           var docH = document.documentElement.scrollHeight - window.innerHeight;
           var frac = docH > 0 ? Math.min(1, Math.max(0, scrollTop / docH)) : 0;
           fill.style.height = frac * 100 + "%";
+
+          var lawsVisible = false;
+          if (lawsStart) {
+            var lawsTop = lawsStart.getBoundingClientRect().top + scrollTop;
+            var lawsBottom = lawsEnd
+              ? lawsEnd.getBoundingClientRect().top + scrollTop
+              : lawsTop;
+            var probe = scrollTop + window.innerHeight * 0.25;
+            lawsVisible = probe >= lawsTop && probe < lawsBottom;
+          }
+          setLawsRailVisible(lawsVisible);
+
+          if (lawsVisible && lawsFill && lawsSections.length) {
+            var lawsStartTop =
+              lawsStart.getBoundingClientRect().top + scrollTop;
+            var lawsEndTop = lawsEnd
+              ? lawsEnd.getBoundingClientRect().top + scrollTop
+              : document.documentElement.scrollHeight;
+            var lawsFrac = Math.min(
+              1,
+              Math.max(
+                0,
+                (scrollTop + window.innerHeight * 0.25 - lawsStartTop) /
+                  (lawsEndTop - lawsStartTop),
+              ),
+            );
+            lawsFill.style.height = lawsFrac * 100 + "%";
+          } else if (lawsFill) {
+            lawsFill.style.height = "0%";
+          }
 
           var probe = scrollTop + window.innerHeight * 0.35;
           var active = 0;
@@ -3070,6 +3309,20 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
           }
           for (var j = 0; j < items.length; j++) {
             items[j].classList.toggle("active", j === active);
+          }
+
+          if (lawsVisible && lawsSections.length) {
+            var lawsProbe = scrollTop + window.innerHeight * 0.2;
+            var lawsActive = 0;
+            for (var k = 0; k < lawsSections.length; k++) {
+              var ls = lawsSections[k];
+              if (!ls) continue;
+              var lawsTopPos = ls.getBoundingClientRect().top + scrollTop;
+              if (lawsTopPos <= lawsProbe) lawsActive = k;
+            }
+            for (var l = 0; l < lawsItems.length; l++) {
+              lawsItems[l].classList.toggle("active", l === lawsActive);
+            }
           }
         }
 
@@ -3093,6 +3346,15 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
         var key = "cpl_theme";
         var root = document.documentElement;
         var toggle = document.getElementById("themeToggle");
+        function syncGiscus(theme) {
+          var iframe = document.querySelector("iframe.giscus-frame");
+          if (!iframe) return;
+          iframe.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
+            "https://giscus.app"
+          );
+        }
+
         function apply(theme) {
           var label = toggle && toggle.querySelector(".label-text");
           if (theme === "dark") {
@@ -3111,6 +3373,7 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
             toggle && toggle.setAttribute("aria-label", "Switch to dark mode");
             if (label) label.textContent = "Dark mode";
           }
+          syncGiscus(theme || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
         }
 
         function getPreferred() {
