@@ -954,7 +954,7 @@
       .laws-rail {
         position: fixed;
         top: 50%;
-        left: 1.5rem;
+        right: 1.5rem;
         transform: translateY(-50%);
         z-index: 39;
         display: none;
@@ -1147,19 +1147,31 @@
         inset: calc(-1 * var(--glow-spread));
         z-index: -1;
         border-radius: inherit;
-        background: linear-gradient(90deg, rgb(var(--glow-1)) 0%, rgb(var(--glow-2)) 100%);
+        background: linear-gradient(
+          90deg,
+          rgb(var(--glow-1)) 0%,
+          rgb(var(--glow-2)) 100%
+        );
         filter: blur(var(--glow-blur));
         opacity: var(--glow-opacity);
-        transition: opacity 0.25s ease, transform 0.25s ease;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
         pointer-events: none;
         transform: translateZ(0);
         animation: glowShift 6s linear infinite;
         mix-blend-mode: screen;
       }
       @keyframes glowShift {
-        0% { filter: blur(var(--glow-blur)) hue-rotate(0deg); }
-        50% { filter: blur(calc(var(--glow-blur) * 1.25)) hue-rotate(30deg); }
-        100% { filter: blur(var(--glow-blur)) hue-rotate(0deg); }
+        0% {
+          filter: blur(var(--glow-blur)) hue-rotate(0deg);
+        }
+        50% {
+          filter: blur(calc(var(--glow-blur) * 1.25)) hue-rotate(30deg);
+        }
+        100% {
+          filter: blur(var(--glow-blur)) hue-rotate(0deg);
+        }
       }
       .copilot-glow:focus-within::before,
       .copilot-glow:hover::before {
@@ -1167,10 +1179,19 @@
         transform: translateY(-2px);
       }
       @media (max-width: 600px) {
-        .copilot-glow::before { display: none; }
+        .copilot-glow::before {
+          display: none;
+        }
       }
 
-      /* ── Peripheral comet glow — orbits the box edge like the Copilot input ── */
+      /* ── Peripheral comet glow — orbits the box edge like the Copilot input ──
+         @property animates the gradient's from-angle directly so the element
+         never rotates — the mask stays locked to the box edges at all times   */
+      @property --orbit-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
       .peripheral-glow {
         position: relative;
         z-index: 0;
@@ -1183,37 +1204,36 @@
         border-radius: 10px;
         z-index: -1;
         pointer-events: none;
-        padding: 2px; /* border strip width */
+        padding: 2px;
         background: conic-gradient(
-          from 0deg,
-          transparent            0deg,
-          transparent            263deg,
-          rgba(63, 138, 255, 0)  268deg,
+          from var(--orbit-angle),
+          transparent               0deg,
+          transparent               263deg,
+          rgba(63, 138, 255, 0)     268deg,
           rgba(63, 138, 255, 0.45)  322deg,
           rgba(180, 215, 255, 0.65) 350deg,
           rgba(63, 138, 255, 0.45)  360deg
         );
-        /* punch out the interior — show only the 2px border strip */
         -webkit-mask:
           linear-gradient(#fff 0 0) content-box,
           linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
-        animation: orbitGlow 6s ease-in-out infinite;
+        animation: orbitGlow 6s linear infinite;
       }
       @keyframes orbitGlow {
-        0%   { transform: rotate(0deg);   }
-        30%  { transform: rotate(150deg); }
-        55%  { transform: rotate(240deg); }
-        80%  { transform: rotate(310deg); }
-        100% { transform: rotate(360deg); }
+        0%   { --orbit-angle: 0deg;   }
+        30%  { --orbit-angle: 150deg; }
+        55%  { --orbit-angle: 240deg; }
+        80%  { --orbit-angle: 310deg; }
+        100% { --orbit-angle: 360deg; }
       }
       :root[data-theme="dark"] .peripheral-glow::after {
         background: conic-gradient(
-          from 0deg,
-          transparent            0deg,
-          transparent            260deg,
-          rgba(63, 138, 255, 0)  266deg,
+          from var(--orbit-angle),
+          transparent               0deg,
+          transparent               260deg,
+          rgba(63, 138, 255, 0)     266deg,
           rgba(63, 138, 255, 0.55)  320deg,
           rgba(180, 215, 255, 0.80) 350deg,
           rgba(63, 138, 255, 0.55)  360deg
@@ -1222,7 +1242,6 @@
       @media (max-width: 900px) {
         .peripheral-glow::after { display: none; }
       }
-
     </style>
   </head>
   <body>
@@ -3363,8 +3382,12 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
           var iframe = document.querySelector("iframe.giscus-frame");
           if (!iframe) return;
           iframe.contentWindow.postMessage(
-            { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
-            "https://giscus.app"
+            {
+              giscus: {
+                setConfig: { theme: theme === "dark" ? "dark" : "light" },
+              },
+            },
+            "https://giscus.app",
           );
         }
 
@@ -3386,7 +3409,13 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.6.</pre
             toggle && toggle.setAttribute("aria-label", "Switch to dark mode");
             if (label) label.textContent = "Dark mode";
           }
-          syncGiscus(theme || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+          syncGiscus(
+            theme ||
+              (window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light"),
+          );
         }
 
         function getPreferred() {
