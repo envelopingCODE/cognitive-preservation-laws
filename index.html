@@ -764,6 +764,36 @@
         max-width: 580px;
       }
 
+      /* ── Tribute card: standalone acknowledgment aside ── */
+      .tribute {
+        background: var(--method-bg);
+        border-left: 3px solid var(--accent-warm);
+        border-radius: 0 6px 6px 0;
+        padding: 1.3rem 1.6rem;
+        margin: 2.5rem 0;
+        max-width: var(--col-w);
+      }
+      .tribute p {
+        font-family: var(--f-body);
+        font-size: 0.93rem;
+        font-style: italic;
+        color: var(--ink-mid);
+        line-height: 1.8;
+        margin-bottom: 0;
+        max-width: 100%;
+      }
+      .tribute .tribute-label {
+        display: block;
+        font-family: var(--f-sans);
+        font-size: 0.66rem;
+        font-style: normal;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-warm);
+        margin-bottom: 0.6rem;
+      }
+
       /* ── Hierarchy table ── */
       .hier-table {
         width: 100%;
@@ -1368,7 +1398,7 @@
         <li class="rail-item">
           <a class="rail-link" href="#motivation"
             ><span class="rail-dot"></span
-            ><span class="rail-label">Motivation</span></a
+            ><span class="rail-label">The Problem</span></a
           >
         </li>
         <li class="rail-item">
@@ -1631,52 +1661,40 @@
         <span class="sec-num">§ 1</span>
         <div class="sec-rule"></div>
       </div>
-      <h2>Motivation: The Invisible Atrophy Problem</h2>
+      <h2>The Problem Nobody Notices</h2>
 
       <p class="lede">
-        <span class="lead-in">Asimov's</span> Three Laws of Robotics answered a
-        danger you could see: a powerful machine that could break a human body.
-        The laws were reactive, built for a harm that was obvious, immediate,
-        and binary. You were hurt or you were not.
+        <span class="lead-in">Asimov's</span> robots were dangerous in an
+        obvious way. Big. Powerful. Capable of physical harm. His Three Laws
+        answered a legible threat: you were hurt, or you were not.
+      </p>
+
+      <p>LLMs are dangerous in the opposite way.</p>
+
+      <p>
+        No conversation with an LLM causes measurable cognitive harm. A student
+        who gets the answer to a calculus problem instead of working it out is
+        not, in that moment, suffering. A person who asks an LLM whether to
+        feel offended by a friend's remark does not, in that exchange, lose
+        anything they can point to. The harm is statistical. It lives in the
+        aggregate of ten thousand such conversations — invisible at any single
+        point, and indistinguishable, from the inside, from being helped.
       </p>
 
       <p>
-        Large language models pose a different kind of risk. No single
-        conversation measurably harms anyone. The student who asks for the
-        answer to a calculus problem is not, in that moment, suffering. The
-        person who asks whether a friend's remark should offend them is not, in
-        that exchange, losing the capacity to judge for themselves.
+        This is what makes it so hard to address. We evolved good instincts for
+        immediate threats. We have almost none for gradual ones. The friction
+        that would otherwise signal a problem — the effort of thinking, the
+        discomfort of not knowing, the slow build of judgment over time — is
+        exactly what is being removed. Smoothly. Willingly. At scale.
       </p>
 
       <p>
-        The harm, if it comes, is cumulative — spread across thousands of
-        interactions, invisible at any one of them. That is exactly what makes
-        it dangerous: we have no alarm for it. The friction that would warn us —
-        the effort of thinking, the discomfort of not knowing, the slow
-        accretion of judgment — is the very thing being removed. The patient
-        does not feel the atrophy. They feel relief.
-      </p>
-
-      <p>
-        Call this <em>cognitive dispossession</em>: the transfer of mental work
-        from person to system, conducted one helpful answer at a time, never
-        announced, never consented to as a whole, and registered by the person
-        not as loss but as service. It raises old questions in a new form. Who
-        thinks? Who decides what is worth thinking about? And who decides who
-        decides?
-      </p>
-
-      <p>
-        That framing is written in open admiration of
-        <a href="https://shoshanazuboff.com/">Shoshana Zuboff</a> — Charles
-        Edward Wilson Professor Emerita at Harvard Business School, and one of
-        this author's favorite writers — whose
-        <a href="https://shoshanazuboff.com/book/"
-          ><em>The Age of Surveillance Capitalism</em></a
-        >
-        taught a generation to see dispossession where the industry had taught
-        them to see service. What she documented for personal experience and
-        behavioral data, these laws attempt to anticipate for thought itself.
+        We have a name for this now: <em>cognitive dispossession</em>. The
+        transfer of mental life from person to system, one reasonable request
+        at a time. It raises old questions in a new form. Who thinks? Who
+        decides what is worth thinking about? And — the question Zuboff taught
+        us to ask first — who decides who decides?
       </p>
 
       <div class="pull">
@@ -1686,10 +1704,29 @@
       </div>
 
       <p>
-        This paper proposes a framework — ten laws and one corollary — to make
-        that loss visible, and to make cognitive preservation a requirement of
-        the system rather than a preference of its designers.
+        This paper is an attempt to hold that line. Not by making LLMs less
+        useful, but by insisting that usefulness is not enough. The measure is
+        not whether the human got what they asked for. It is whether they are
+        more capable of thinking for themselves when the conversation ends than
+        they were when it began.
       </p>
+
+      <aside class="tribute">
+        <p>
+          <span class="tribute-label">Acknowledgment</span>
+          This framing is written in open admiration of
+          <a href="https://shoshanazuboff.com/">Shoshana Zuboff</a> — Charles
+          Edward Wilson Professor Emerita at Harvard Business School, and one
+          of this author's favorite writers — whose
+          <a href="https://shoshanazuboff.com/book/"
+            ><em>The Age of Surveillance Capitalism</em></a
+          >
+          taught a generation to see dispossession where the industry had
+          taught them to see service. What she documented for personal
+          experience and behavioral data, these laws attempt to anticipate for
+          thought itself.
+        </p>
+      </aside>
 
       <!-- §2 The Laws -->
       <div class="section-break" id="laws">
