@@ -1170,7 +1170,7 @@
         .copilot-glow::before { display: none; }
       }
 
-      /* ── Subtle peripheral blue glow for specific sections ── */
+      /* ── Peripheral comet glow — orbits the box edge like the Copilot input ── */
       .peripheral-glow {
         position: relative;
         z-index: 0;
@@ -1179,32 +1179,41 @@
       .peripheral-glow::after {
         content: "";
         position: absolute;
-        inset: -8px;
+        inset: -2px;
+        border-radius: 10px;
         z-index: -1;
-        border-radius: inherit;
         pointer-events: none;
-        /* soft ring + subtle rotating highlight */
-        background: conic-gradient(from 0deg, rgba(86,125,156,0.10), rgba(86,125,156,0.03) 55%, rgba(86,125,156,0.12) 120%, rgba(86,125,156,0.00) 220deg);
-        filter: blur(8px);
-        box-shadow: 0 0 10px 2px rgba(86, 125, 156, 0.08), 0 0 22px 4px rgba(86,125,156,0.04) inset;
-        opacity: 0.9;
-        transition: opacity 220ms ease, transform 220ms ease;
-        transform-origin: 50% 50%;
-        transform: rotate(0deg) translateZ(0);
-        will-change: transform, opacity;
-        animation: peripheralOrbit var(--peripheral-duration,9s) linear infinite;
+        /* concentrated comet arc ~95° wide; rest is transparent */
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 265deg,
+          rgba(63, 138, 255, 0.06)  295deg,
+          rgba(100, 165, 255, 0.16) 340deg,
+          rgba(160, 200, 255, 0.20) 355deg,
+          rgba(100, 165, 255, 0.16) 360deg
+        );
+        filter: blur(3px);
+        animation: orbitGlow 6s ease-in-out infinite;
       }
-      @keyframes peripheralOrbit {
-        /* rotation amounts vary across the cycle to create a sense of
-           speeding up and slowing down like the Co‑pilot ring */
-        0%   { transform: rotate(0deg);   opacity: 0.92; }
-        25%  { transform: rotate(160deg); opacity: 0.86; }
-        45%  { transform: rotate(520deg); opacity: 0.78; }
-        70%  { transform: rotate(760deg); opacity: 0.82; }
-        100% { transform: rotate(1080deg);opacity: 0.92; }
+      /* non-uniform speed: accelerates out of the gate, decelerates on approach */
+      @keyframes orbitGlow {
+        0%   { transform: rotate(0deg);   }
+        30%  { transform: rotate(150deg); }
+        55%  { transform: rotate(240deg); }
+        80%  { transform: rotate(310deg); }
+        100% { transform: rotate(360deg); }
       }
       :root[data-theme="dark"] .peripheral-glow::after {
-        box-shadow: 0 0 18px 4px rgba(100, 150, 180, 0.12), 0 0 36px 8px rgba(100,150,180,0.04) inset;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 260deg,
+          rgba(63, 138, 255, 0.10)  293deg,
+          rgba(100, 165, 255, 0.28) 340deg,
+          rgba(160, 210, 255, 0.36) 355deg,
+          rgba(100, 165, 255, 0.28) 360deg
+        );
       }
       @media (max-width: 900px) {
         .peripheral-glow::after { display: none; }
