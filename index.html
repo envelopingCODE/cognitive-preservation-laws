@@ -648,7 +648,17 @@
         display: block;
         width: 100%;
         height: auto;
-        max-width: 560px;
+        max-width: 720px;
+      }
+      /* Widescreen: let diagrams break out of the text column */
+      @media (min-width: 1280px) {
+        figure.fig {
+          width: 940px;
+          margin-left: calc((780px - 940px) / 2);
+        }
+        figure.fig svg {
+          max-width: 100%;
+        }
       }
 
       /* ── Stress tests ── */
