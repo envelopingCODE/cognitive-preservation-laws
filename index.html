@@ -394,8 +394,6 @@
         gap: 0;
       }
       .law-card {
-        position: relative;
-        overflow: hidden;
         display: grid;
         grid-template-columns: 5rem 1fr;
         border-top: 1px solid var(--rule);
@@ -420,34 +418,19 @@
         color: var(--accent-laws);
         padding-top: 0.3rem;
       }
-      /* Law icons as card watermarks: large, faint, behind the text */
       .law-icon {
-        position: absolute;
-        top: 1.4rem;
-        right: -0.8rem;
-        width: 160px;
-        height: 160px;
-        opacity: 0.06;
-        pointer-events: none;
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin-top: 0.6rem;
+        opacity: 0.8;
         transition:
-          opacity 0.3s ease,
-          transform 0.3s ease;
+          opacity 0.2s ease,
+          transform 0.2s ease;
       }
       .law-card:hover .law-icon {
-        opacity: 0.13;
-        transform: scale(1.04) rotate(-2deg);
-      }
-      :root[data-theme="dark"] .law-icon {
-        opacity: 0.09;
-      }
-      :root[data-theme="dark"] .law-card:hover .law-icon {
-        opacity: 0.17;
-      }
-      @media (max-width: 700px) {
-        .law-icon {
-          width: 110px;
-          height: 110px;
-        }
+        opacity: 1;
+        transform: translateY(-2px) scale(1.15);
       }
       .law-title {
         font-family: var(--f-display);
@@ -516,6 +499,7 @@
       .lawchip {
         display: block;
         position: relative;
+        overflow: hidden;
         border: 1px solid var(--rule);
         border-left: 3px solid var(--rule);
         border-radius: 4px;
@@ -556,20 +540,23 @@
         line-height: 1.45;
         margin-top: 0.35rem;
       }
+      /* Chip icons as card watermarks: large, faint, bleeding off the edge */
       .lawchip-icon {
         position: absolute;
-        top: 0.7rem;
-        right: 0.7rem;
-        width: 20px;
-        height: 20px;
-        opacity: 0.45;
+        top: 50%;
+        right: -18px;
+        width: 96px;
+        height: 96px;
+        transform: translateY(-50%);
+        opacity: 0.12;
+        pointer-events: none;
         transition:
-          opacity 0.15s ease,
-          transform 0.15s ease;
+          opacity 0.2s ease,
+          transform 0.2s ease;
       }
       .lawchip:hover .lawchip-icon {
-        opacity: 1;
-        transform: scale(1.12);
+        opacity: 0.26;
+        transform: translateY(-50%) scale(1.06);
       }
       .lawchip.cap {
         border-left-color: var(--accent);
