@@ -35,7 +35,7 @@ The **Socratic Corollary** makes the laws the default, not an effort the user ha
 
 ## Status
 
-Working Draft — **v1.7** (June 2026)
+Working Draft — **v1.8** (June 2026)
 
 This is a living document. See the [changelog](https://envelopingcode.github.io/cognitive-preservation-laws/#changelog) on the paper for full version history.
 

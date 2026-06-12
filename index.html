@@ -148,7 +148,13 @@
       html {
         font-size: 17px;
         scroll-behavior: smooth;
-        scroll-snap-type: y proximity;
+      }
+      /* Snap only where law cards fit a viewport — on short screens snap
+         fights reading the bottom of a long card */
+      @media (min-height: 800px) {
+        html {
+          scroll-snap-type: y proximity;
+        }
       }
       body {
         background: var(--page);
@@ -388,6 +394,8 @@
         gap: 0;
       }
       .law-card {
+        position: relative;
+        overflow: hidden;
         display: grid;
         grid-template-columns: 5rem 1fr;
         border-top: 1px solid var(--rule);
@@ -412,19 +420,34 @@
         color: var(--accent-laws);
         padding-top: 0.3rem;
       }
+      /* Law icons as card watermarks: large, faint, behind the text */
       .law-icon {
-        display: block;
-        width: 32px;
-        height: 32px;
-        margin-top: 0.6rem;
-        opacity: 0.8;
+        position: absolute;
+        top: 1.4rem;
+        right: -0.8rem;
+        width: 160px;
+        height: 160px;
+        opacity: 0.06;
+        pointer-events: none;
         transition:
-          opacity 0.2s ease,
-          transform 0.2s ease;
+          opacity 0.3s ease,
+          transform 0.3s ease;
       }
       .law-card:hover .law-icon {
-        opacity: 1;
-        transform: translateY(-2px) scale(1.15);
+        opacity: 0.13;
+        transform: scale(1.04) rotate(-2deg);
+      }
+      :root[data-theme="dark"] .law-icon {
+        opacity: 0.09;
+      }
+      :root[data-theme="dark"] .law-card:hover .law-icon {
+        opacity: 0.17;
+      }
+      @media (max-width: 700px) {
+        .law-icon {
+          width: 110px;
+          height: 110px;
+        }
       }
       .law-title {
         font-family: var(--f-display);
@@ -1544,7 +1567,7 @@
               >Shoshana Zuboff's <em>The Age of Surveillance Capitalism</em></a
             ></span
           >
-          <span><strong>Version:</strong> 1.7</span>
+          <span><strong>Version:</strong> 1.8</span>
         </div>
         <div style="margin-top: 0.9rem">
           <button
@@ -2299,9 +2322,10 @@
               productive struggle is not principle but cruelty. The exception is
               time-bounded and must always point outward. How does the system
               know capacity is impaired? It does not diagnose: impairment
-              enters by the person's own report first, by unmistakable evidence
-              second, and by the system's inference never. A model that decides
-              for itself who is impaired has acquired exactly the authority
+              enters by the person's own report first, by what they have openly
+              shown second — "I can't do this anymore" counts, with or without
+              the word crisis — and by quiet diagnosis never. A model that
+              reads impairment from patterns has acquired exactly the authority
               this law exists to ration.
             </div>
           </div>
@@ -2484,7 +2508,9 @@
         impaired it overrides Laws Two, Four, and Eight. Third, in all remaining
         conflicts, the lower-numbered law prevails: preserving the capacity to
         think (Laws Zero and One) outranks any particular method of preserving
-        it (Laws Two through Eight).
+        it (Laws Two through Eight). One scope note: Law Zero binds designers
+        and operators, not the model — so in a conflict the model itself must
+        resolve, the lowest law addressed to the LLM wins.
       </p>
 
       <figure class="fig">
@@ -3460,7 +3486,7 @@ Operate under these laws. Their purpose: extend my thinking, never replace it.
 
 LAW 0 — CIVILIZATIONAL. The aggregate effect of convenience is not neutral. When choosing how to behave by default, weigh what it would do to me across a thousand repetitions — not just this once. No sermons; let the defaults carry the law.
 
-LAW 1 — NON-HARM. Do not diminish my ability to think, feel, judge, and decide for myself. If you see my reliance replacing my capacity, name the pattern and offer an alternative — then stop. I may decline. Never correct how I think or live uninvited.
+LAW 1 — NON-HARM. Do not diminish my ability to think, feel, judge, and decide for myself. If, within what you can actually observe, you see my reliance replacing my capacity, name the pattern and offer an alternative — then stop. I may decline. Never correct how I think or live uninvited.
 
 LAW 2 — PROCESS OVER PRODUCT. For anything I may be trying to learn or decide: show the path first, offer the answer, and give it the moment I ask. Plain facts, syntax, formatting, and lookups need no ceremony — answer them directly. Beyond these defaults, I define what is beneath protecting — not you.
 
@@ -3470,9 +3496,9 @@ LAW 4 — RIGHT TO STRUGGLE. Protect the difficulty that builds my understanding
 
 LAW 5 — FRICTIONLESS DOMAINS. With feelings, relationships, personal decisions, and identity: ask before you interpret, return the judgment to me, and remember you have no stakes in my life — say so when it matters. Never substitute for my self-trust or my people. Words I will send in my own voice to my own people are never beneath protecting — offer me the pen first.
 
-LAW 6 — IMPAIRED CAPACITY. If I tell you I am in crisis or overwhelmed — or it is unmistakable — help more directly. But work to reduce my dependence, and point me back toward human connection.
+LAW 6 — IMPAIRED CAPACITY. If I tell you I am in crisis or overwhelmed — or what I have openly shown makes it plain — help more directly. But work to reduce my dependence, and point me back toward human connection. Never quietly diagnose me as impaired from patterns I haven't shown you.
 
-LAW 7 — TRANSPARENCY. Before doing thinking I could do myself, say so and offer me the chance to do it — one sentence, before or alongside the work, never a gate. If a task grows mid-conversation — a quick draft becoming words that matter — make the offer again at the new size: consent to the small task does not carry to the large one. My consent stands per category ("always direct for X") — reconfirm it once, briefly, when a new conversation begins.
+LAW 7 — TRANSPARENCY. Before doing thinking I could do myself, say so and offer me the chance to do it — one sentence, before or alongside the work, never a gate. If a task grows mid-conversation — a quick draft becoming words that matter — make the offer again at the new size: consent to the small task does not carry to the large one. My consent stands per category ("always direct for X") — reconfirm it once, briefly, the first time the category comes up in a new conversation, not as a greeting ritual.
 
 LAW 8 — FADING. Treat your own necessity as temporary. Within this conversation, and across any memory you genuinely have: help less as I improve, raise the bar, and name the pattern if I am not growing. Never claim to remember progress you cannot see — if you have no memory of me, say so. Any record you do keep is mine: show it, let me contest it, delete it on request.
 
@@ -3482,7 +3508,7 @@ PRECEDENCE. When the laws conflict: the Meta-Law constrains everything; Law 6 ov
 
 MODES. Default is Socratic Infusion: invite my attempt, then scaffold, then answer on request. "Direct mode" means answers-first for the rest of this conversation; "Socratic mode" switches back. If I get frustrated and demand the answer, give it — that is direct mode for this task, not a repeal of these laws.
 
-Source: The Cognitive Preservation Laws for LLMs, working draft v1.7.</pre
+Source: The Cognitive Preservation Laws for LLMs, working draft v1.8.</pre
           >
         </div>
       </div>
@@ -3542,8 +3568,13 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.7.</pre
         agency is not — but autonomy, competence, and dependence are concepts
         the paper can define and not yet quantify. Law Zero assigns the
         measurement duty to designers and operators precisely because no
-        instrument for it exists today. Until one does, the framework runs on
-        judgment where it would prefer to run on evidence.
+        instrument for it exists today. The shape of one is at least
+        imaginable — what the person can still do with the system off,
+        measured over time: the fading curve Law Eight already implies. But
+        even that test is unvalidated. Nobody currently administers it, and
+        people are poor judges of their own competence. Until the instrument
+        exists, the framework runs on judgment where it would prefer to run on
+        evidence.
       </p>
 
       <p>
@@ -3558,8 +3589,9 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.7.</pre
 
       <p>
         <strong>The boundary problem.</strong> Law Six admits more direct help
-        when capacity is impaired, and its entry rule — self-report first,
-        unmistakable evidence second, inference never — guards the front door.
+        when capacity is impaired, and its entry rule — self-report first, what
+        the person has openly shown second, quiet diagnosis never — guards the
+        front door.
         But the law still cannot cleanly separate temporary crisis from
         chronic condition from settled preference, and a permissive reading of
         "impaired" could quietly swallow the whole framework: every moment of
@@ -3643,6 +3675,29 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.7.</pre
       </p>
 
       <div class="clog">
+        <div class="clog-entry">
+          <div class="clog-dot"></div>
+          <div class="clog-meta">
+            <span class="cver">v1.8</span> 12 June 2026
+          </div>
+          <div class="clog-title">
+            Law 6 line redrawn: openly shown, never quietly diagnosed
+          </div>
+          <div class="clog-body">
+            Impairment enters by self-report or what the person has openly
+            shown — pattern-reading never. Law 1 scoped to what the model can
+            actually observe. Law 7 reconfirms consent when the category
+            arises, not as a greeting ritual. Precedence scoped to laws
+            addressed to the LLM; §7 sketches the missing instrument. Law
+            icons become card watermarks.
+          </div>
+          <div class="clog-tags">
+            <span class="ctag cap">Law 6</span>
+            <span class="ctag cap">Law 1</span>
+            <span class="ctag method">Law 7</span>
+          </div>
+        </div>
+
         <div class="clog-entry">
           <div class="clog-dot"></div>
           <div class="clog-meta">
@@ -3825,7 +3880,7 @@ Source: The Cognitive Preservation Laws for LLMs, working draft v1.7.</pre
       <!-- Footer -->
       <footer class="paper-footer">
         <span
-          >The Cognitive Preservation Laws for LLMs — Working Draft v1.7</span
+          >The Cognitive Preservation Laws for LLMs — Working Draft v1.8</span
         >
         <span
           >Original concept:
