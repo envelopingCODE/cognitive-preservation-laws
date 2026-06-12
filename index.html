@@ -648,13 +648,16 @@
         display: block;
         width: 100%;
         height: auto;
-        max-width: 720px;
+        max-width: 612px;
+      }
+      figure.fig figcaption {
+        padding-left: 10.7%;
       }
       /* Widescreen: let diagrams break out of the text column */
       @media (min-width: 1280px) {
         figure.fig {
-          width: 940px;
-          margin-left: calc((780px - 940px) / 2);
+          width: 800px;
+          margin-left: calc((780px - 800px) / 2);
         }
         figure.fig svg {
           max-width: 100%;
@@ -1421,6 +1424,12 @@
       <div class="rail-track"><div class="rail-fill" id="railFill"></div></div>
       <ul class="rail-list">
         <li class="rail-item">
+          <a class="rail-link" href="#top"
+            ><span class="rail-dot"></span
+            ><span class="rail-label">Start</span></a
+          >
+        </li>
+        <li class="rail-item">
           <a class="rail-link" href="#motivation"
             ><span class="rail-dot"></span
             ><span class="rail-label">The Problem</span></a
@@ -1536,7 +1545,7 @@
     </nav>
     <div class="wrapper">
       <!-- Masthead -->
-      <header class="masthead">
+      <header class="masthead" id="top">
         <div class="label">
           Position Paper &nbsp;·&nbsp; AI Ethics &amp; Cognitive Science
         </div>
@@ -3156,6 +3165,7 @@
           <defs>
             <linearGradient id="modegrad" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0" stop-color="var(--accent)" />
+              <stop offset="0.45" stop-color="#a8d8f8" />
               <stop offset="1" stop-color="var(--accent-warm)" />
             </linearGradient>
           </defs>
